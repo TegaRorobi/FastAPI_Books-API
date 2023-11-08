@@ -55,6 +55,18 @@ def update_book(book_id:UUID, book:Book):
 
 
 
+@app.delete('/books/{book_id}')
+def delete_book(book_id:UUID):
+    "Delete a book object"
+    for idx, book in enumerate(BOOKS):
+        if book.id == book_id:
+            del BOOKS[idx]
+            return {'success': f"Book item with id {book_id} deleted."}
+    raise HTTPException(
+        status_code=404, 
+        detail=f"Book item with id {book_id} not found")
+
+
 
 if __name__ == '__main__':
     import uvicorn 
