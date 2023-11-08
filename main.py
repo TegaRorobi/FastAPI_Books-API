@@ -42,6 +42,18 @@ def retrieve_book(book_id:UUID):
         detail=f"Book item with id {book_id} not found")
 
 
+@app.put('/books/{book_id}')
+def update_book(book_id:UUID, book:Book):
+    "Update the details of a book"
+    for idx, existing_book in enumerate(BOOKS):
+        if existing_book.id == book_id:
+            BOOKS[idx] = book 
+            return book
+    raise HTTPException(
+        status_code=404, 
+        detail=f"Book item with id {book_id} not found")
+
+
 
 
 if __name__ == '__main__':
