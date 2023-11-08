@@ -31,6 +31,17 @@ def create_book(book: Book):
     return book 
 
 
+@app.get('/books/{book_id}')
+def retrieve_book(book_id:UUID):
+    "Retrieve the detils of a specific book"
+    for book in BOOKS:
+        if book.id == book_id:
+            return book
+    raise HTTPException(
+        status_code=404, 
+        detail=f"Book item with id {book_id} not found")
+
+
 
 
 if __name__ == '__main__':
